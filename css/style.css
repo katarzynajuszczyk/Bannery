@@ -1,6 +1,7 @@
 .mw-banner {
   position: relative;
   display: block;
+  cursor: pointer;
 }
 .mw-banner > * {
   position: absolute;
