@@ -1,0 +1,21 @@
+{
+
+    "version": "1.0",
+
+    "title": "120x600 standard html", 
+    "description": "",  
+
+    "width" : "120", 
+    "height": "600", 
+
+    "events": {
+        "enabled": 1, 
+        "list": { }
+    },
+
+    "clicktags": {
+        "clickTAG": "http://www.wp.pl"
+    },
+
+    "source": "index.html"
+}
