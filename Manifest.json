@@ -2,10 +2,10 @@
 
     "version": "1.0",
 
-    "title": "120x600 standard html", 
+    "title": "160x600 standard html", 
     "description": "",  
 
-    "width" : "120", 
+    "width" : "160", 
     "height": "600", 
 
     "events": {

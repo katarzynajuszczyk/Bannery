@@ -4,7 +4,7 @@ var animateUs = (function() {
   if(!Modernizr.csstransitions) {
     animations = {
          float: function(elem) {
-          animations.show(elem,500);
+          animations.show(elem, 600);
 
            animations.moveUp(elem, 500,
                              animations.moveDown(elem, 400, 
@@ -77,8 +77,13 @@ var animateUs = (function() {
     
   } else {
       animations = {
-         float: function(elem) {
-           elem.transition({opacity: '1', y:'-=10'}, 500, 'easeOutQuad').transition({opacity: '1', y:'+=10'}, 500, 'easeOutQuad');
+        float: function(elem) {
+           elem.css({'top': '+=20px'});
+           elem.transition({opacity: '1', y: '-=20px'}, 500, 'easeOutQuad')
+        },
+        floatHide: function(elem) {
+            elem.css({'top': '+=20px'});
+            elem.transition({opacity: '1', y: '-=20px'}, 500, 'easeOutQuad').transition({opacity: 0, y: '-=20px', delay: 2000});
         },
         show: function(elem) {
           elem.transition({opacity: '1'}, 700); 
@@ -86,17 +91,24 @@ var animateUs = (function() {
         grow: function(elem) {
           elem.transition({opacity: '1', width: '100px', height:'100px'}, 700, 'easeInOutBack');
         }, 
+        hide: function(elem) {
+            elem.transition({opacity: '0', display: 'none'}, 700);
+        },
+        pulsate: function(elem) {
+           elem.transition({scale: 1.3}, 400).transition({scale: 1},400).transition({scale: 1.3}, 400).transition({scale: 1},400);         
+        },
+          
         point: function(elem) {
           elem
             .transition({
-              right: '-7px',
+              x: '-2px',
               duration: '500', 
-              easing: 'linear'
+              easing: 'in-out'
           })
             .transition({
-              right: '-2px', 
+              x: '+4px', 
               duration: '500', 
-              easing: 'linear'
+              easing: 'in-out'
             });
         }
       };
@@ -111,13 +123,13 @@ var animateUs = (function() {
       var delay = 0 || elem.data('animation-delay');
       var loopDelay = 0 || elem.data('loop');
       var toCall = animations[elem.data('animation-name')].bind(null, elem);
-      
+      console.log(elem +' delay '+delay);
       setTimeout(toCall, delay);
       
-      if (elem.data('loop')) {
+      if (elem.data('animation-loop')) {
        setInterval(function(){
           setTimeout(toCall, delay);
-        }, elem.data('loop')); 
+        }, elem.data('animation-loop')); 
       }
     });
 
