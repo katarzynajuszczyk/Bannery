@@ -2,7 +2,6 @@
     font-family: 'scandinavianbold';
     src: url('../fonts/scandinavian-bold-webfont.eot');
     src: url('../fonts/scandinavian-bold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/scandinavian-bold-webfont.woff2') format('woff2'),
          url('../fonts/scandinavian-bold-webfont.woff') format('woff'),
          url('../fonts/scandinavian-bold-webfont.ttf') format('truetype'),
          url('../fonts/scandinavian-bold-webfont.svg#scandinavianbold') format('svg');
@@ -71,6 +70,9 @@
   color: #fff;
   font-weight: 700;
     border: 1px solid #dedede;
+     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
 }
 
 #mw-banner1 .star-logo {
