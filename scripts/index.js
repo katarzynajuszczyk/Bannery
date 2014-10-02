@@ -34,15 +34,19 @@ var animateUs = (function() {
                 .animate({right: '-2px'}, {easing: 'easeInCirc',duration: 300}); 
             }
       };
-
-    
   } else {
       animations = {
         floatHide: function(elem) {
-            elem.transition({opacity: '1', y: '20px'}, 500, 'easeOutQuad').transition({opacity: 0, y: '0', delay: 2000});
+            elem.transition({opacity: '1', y: '20px'}, 500, 'easeOutQuad')
+                .transition({opacity: 0, y: '0', delay: 2000});
         },
         pulsate: function(elem) {
-           elem.transition({scale: 1.2}, 200).transition({scale: 1},200).transition({scale: 1.2}, 200).transition({scale: 1},200).transition({scale: 1.2}, 200).transition({scale: 1},200); ;         
+           elem.transition({scale: 1.2}, 200)
+               .transition({scale: 1}, 200)
+               .transition({scale: 1.2}, 200)
+               .transition({scale: 1}, 200)
+               .transition({scale: 1.2}, 200)
+               .transition({scale: 1}, 200); ;         
         },
         point: function(elem) {
           elem
