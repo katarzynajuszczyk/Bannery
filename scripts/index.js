@@ -2,71 +2,37 @@ var animateUs = (function() {
   myjQ = jQuery.noConflict(true);
   var animations;
   if(!Modernizr.csstransitions) {
-    animations = {
+     animations = {
          floatHide: function(elem) {
-          animations.show(elem, 600);
-          animations.moveUp(elem, 500,
-                             animations.moveDown(elem, 400, 
-                                                 animations.moveUp(elem, 300, elem.delay(2000).hide())
-                             )
-           );
+             elem.animate({
+                opacity: '1',
+                marginTop: '+=20',
+             }, {
+                 duration: 400,
+                 easing: 'easeOutBack'
+             }).delay(1500).animate({
+                    opacity: '0',
+                    display: 'none',
+                    marginTop: '0',
+              }, {
+                 duration: 400,
+                 easing: 'easeOutBack'
+             });
          },
-         moveUp: function(elem, duration, oncomplete) {
-          elem.animate({
-            top: '-=3',
-          }, {
-            duration: duration,
-            easing: 'easeOutBack',
-            complete: oncomplete
-         });
-        },
-        moveDown: function(elem, duration, oncomplete) {
-          elem.animate({
-            top: '+=6'
-          }, {
-            duration: duration,
-            easing: 'easeOutBack',
-            complete: oncomplete
-          });
-        },
-        show: function(elem,duration) {
-          elem.animate({
-            opacity:1,
-          }, {
-            duration: duration,
-            easing: 'easeOutBack',
-            queue: false
-          });  
-        },
-        pulsate: function(elem) {
-            elem.animate({opacity: '0'},{duration: 200})
-                .animate({opacity: '1'},{duration: 200})
-                .animate({opacity: '0'},{duration: 200})
-                .animate({opacity: '1'},{duration: 200})
-                .animate({opacity: '0'},{duration: 200})
-                .animate({opacity: '1'},{duration: 200});         
+         pulsate: function(elem) {
+            elem.animate({opacity: '0'},{easing: 'easeInCirc',duration: 200})
+                .animate({opacity: '1'},{easing: 'easeInCirc',duration: 200})
+                .animate({opacity: '0'},{easing: 'easeInCirc',duration: 200})
+                .animate({opacity: '1'},{easing: 'easeInCirc',duration: 200})
+                .animate({opacity: '0'},{easing: 'easeInCirc',duration: 200})
+                .animate({opacity: '1'},{easing: 'easeInCirc',duration: 200});         
         },
         point: function(elem) {
-           elem.animate({
-             right: '-7px'
-           }, {
-             easing: 'easeInCirc',
-             duration: 600,
-             complete: function(){
-               animations.pointRight(elem);
-             }
-          }); 
-        },
-        pointRight: function(elem) {
-           elem.animate({
-              right: '-2px'
-            }, {
-               easing: 'easeInCirc',
-               complete: function(){
-                 animations.point(elem);
-               } 
-          }); 
-        }
+            elem.animate({right: '-7px'}, {easing: 'easeInCirc',duration: 300})
+                .animate({right: '-2px'}, {easing: 'easeInCirc',duration: 300})
+                .animate({right: '-7px'}, {easing: 'easeInCirc',duration: 600})
+                .animate({right: '-2px'}, {easing: 'easeInCirc',duration: 300}); 
+            }
       };
 
     
