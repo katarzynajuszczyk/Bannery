@@ -3,12 +3,11 @@ var animateUs = (function() {
   var animations;
   if(!Modernizr.csstransitions) {
     animations = {
-         float: function(elem) {
+         floatHide: function(elem) {
           animations.show(elem, 600);
-
-           animations.moveUp(elem, 500,
+          animations.moveUp(elem, 500,
                              animations.moveDown(elem, 400, 
-                                                 animations.moveUp(elem, 300,function(){return true;})
+                                                 animations.moveUp(elem, 300, elem.delay(2000).hide())
                              )
            );
          },
@@ -39,18 +38,14 @@ var animateUs = (function() {
             queue: false
           });  
         },
-        grow: function(elem, duration, oncomplete) {
-           elem.animate({
-            height: '100px',
-            width: '100px',
-            opacity: 1,
-          }, {
-            duration: duration,
-            easing: 'easeOutBack',
-            oncomplete: oncomplete,
-            queue: false
-          });
-        }, 
+        pulsate: function(elem) {
+            elem.animate({opacity: '0'},{duration: 200})
+                .animate({opacity: '1'},{duration: 200})
+                .animate({opacity: '0'},{duration: 200})
+                .animate({opacity: '1'},{duration: 200})
+                .animate({opacity: '0'},{duration: 200})
+                .animate({opacity: '1'},{duration: 200});         
+        },
         point: function(elem) {
            elem.animate({
              right: '-7px'
@@ -77,63 +72,66 @@ var animateUs = (function() {
     
   } else {
       animations = {
-        float: function(elem) {
-           elem.css({'top': '+=20px'});
-           elem.transition({opacity: '1', y: '-=20px'}, 500, 'easeOutQuad')
-        },
         floatHide: function(elem) {
-            elem.css({'top': '+=20px'});
-            elem.transition({opacity: '1', y: '-=20px'}, 500, 'easeOutQuad').transition({opacity: 0, y: '-=20px', delay: 2000});
-        },
-        show: function(elem) {
-          elem.transition({opacity: '1'}, 700); 
-        },
-        grow: function(elem) {
-          elem.transition({opacity: '1', width: '100px', height:'100px'}, 700, 'easeInOutBack');
-        }, 
-        hide: function(elem) {
-            elem.transition({opacity: '0', display: 'none'}, 700);
+            elem.transition({opacity: '1', y: '20px'}, 500, 'easeOutQuad').transition({opacity: 0, y: '0', delay: 2000});
         },
         pulsate: function(elem) {
-           elem.transition({scale: 1.3}, 400).transition({scale: 1},400).transition({scale: 1.3}, 400).transition({scale: 1},400);         
+           elem.transition({scale: 1.2}, 200).transition({scale: 1},200).transition({scale: 1.2}, 200).transition({scale: 1},200).transition({scale: 1.2}, 200).transition({scale: 1},200); ;         
         },
-          
         point: function(elem) {
           elem
             .transition({
               x: '-2px',
-              duration: '500', 
+              duration: '350', 
               easing: 'in-out'
           })
             .transition({
               x: '+4px', 
-              duration: '500', 
+              duration: '350', 
               easing: 'in-out'
-            });
+          })
+          .transition({
+              x: '-2px',
+              duration: '350', 
+              easing: 'in-out'
+          })
+          .transition({
+              x: '+4px', 
+              duration: '350', 
+              easing: 'in-out'
+           })
+           .transition({
+              x: '-2px',
+              duration: '350', 
+              easing: 'in-out'
+          })
+          .transition({
+              x: '+4px', 
+              duration: '350', 
+              easing: 'in-out'
+           });;
         }
       };
     
   }
   
-   
+        
     var animateUs = myjQ('[data-animation-name]');
-    
-    animateUs.each(function(){
-      var elem = myjQ(this);
-      var delay = 0 || elem.data('animation-delay');
-      var loopDelay = 0 || elem.data('loop');
-      var toCall = animations[elem.data('animation-name')].bind(null, elem);
-      console.log(elem +' delay '+delay);
-      setTimeout(toCall, delay);
-      
-      if (elem.data('animation-loop')) {
-       setInterval(function(){
+    var animateOnce = function(elements) {
+        elements.each(function(){
+          var elem = myjQ(this);
+          var delay = 0 || elem.data('animation-delay');
+          var toCall = animations[elem.data('animation-name')].bind(null, elem);
+
           setTimeout(toCall, delay);
-        }, elem.data('animation-loop')); 
-      }
-    });
-
-
+        });
+    }
+    
+    animateOnce(animateUs);
+    setInterval(function(){
+      animateOnce(animateUs);
+    }, 6000); 
+    
 })();
 
 
