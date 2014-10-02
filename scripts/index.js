@@ -82,10 +82,7 @@ var animateUs = (function() {
            });;
         }
       };
-    
   }
-  
-        
     var animateUs = myjQ('[data-animation-name]');
     var animateOnce = function(elements) {
         elements.each(function(){
